@@ -15,3 +15,18 @@ SAMPLES = SAMPLE_RATE * MAX_DURATION
 
 # Initialize OpenAI client
 client = openai.OpenAI()
+
+def record_audio():
+    input("Press Enter to start recording...")
+    input("Recording... Press Enter to stop")
+
+    audio_data = sd.rec(SAMPLES, SAMPLE_RATE, channels=1, dtype='float64')
+    input()
+    sd.stop()
+    print("Recording stopped")
+
+    tmp = tempfile.NamedTemporaryFile(suffix='.wav', delete=False)
+    sf.write(tmp.name, audio_data, SAMPLE_RATE)
+
+    print(f"Recording {tmp.name} saved successfully")
+    return tmp.name
