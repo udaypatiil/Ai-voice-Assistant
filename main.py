@@ -47,3 +47,16 @@ def think(text):
         input=text
     )
     return response.output_text
+
+def spack(text):
+    with client.audio.speech.with_streaming_response.create(
+        model='tts-1',
+        input=text,
+        voice='nova'
+    ) as response:
+        response.stream_to_file('response.mp3')
+
+    data, sr = sf.read('response.mp3')
+    sd.play(data, sr)
+    sd.wait()
+    os.remove('response.mp3')
