@@ -60,3 +60,9 @@ def spack(text):
     sd.play(data, sr)
     sd.wait()
     os.remove('response.mp3')
+
+    # Run AI voice assistant
+    audio = record_audio()
+    output = transcribe(audio)
+    response = think(output)
+    spack(response)
