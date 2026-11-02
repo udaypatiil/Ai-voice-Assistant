@@ -39,3 +39,11 @@ def transcribe(audio_path):
             response_format='text'
         )
     return output
+
+def think(text):
+    response = client.responses.create(
+        model='gpt-5-nano',
+        instructions='you are a helpful voice assistant keep responses short and conversational',
+        input=text
+    )
+    return response.output_text
